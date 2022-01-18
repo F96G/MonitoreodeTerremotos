@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 
 
 //Siempre se hace igual, ademas del application, si el view model necesita mas cosas se pueden agregar
-class MainVewModelFactory(private val application: Application): ViewModelProvider.Factory {
+class MainVewModelFactory(private val application: Application, private val tipoClas: Boolean): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MainViewModel(application) as T
+        return MainViewModel(application, tipoClas) as T
     }
 }

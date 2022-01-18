@@ -16,10 +16,12 @@ interface EqDAO {
     fun insertAll(eqList: MutableList<Terremoto>)
 
 
-    //@Query hace una pregunta para obtener datos de una base de datos
+    //@Query hace una pregunta para obtener datos de una base de datos, de la API vienen ordenados por tiempo por defecto
     @Query("SELECT * FROM terremotos")//Selecciona tod´o de la tabla terremotos
-    fun getTerremoto():LiveData<MutableList<Terremoto>>
+    fun getTerremotoPorTiempo():MutableList<Terremoto>
 
+    @Query("SELECT * FROM terremotos order by magnitud ASC")//los ordena por magnitud en orden acendente
+    fun getTerremotoPorMagnitud():MutableList<Terremoto>
 
     //Update remplaza lo que hay en la tabla por lo nuevo
     //Delete elimina el elemento pasado por argumento de la tabla
