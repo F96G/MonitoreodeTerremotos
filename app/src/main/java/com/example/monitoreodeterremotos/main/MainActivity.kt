@@ -1,5 +1,6 @@
 package com.example.monitoreodeterremotos.main
 
+import android.content.Intent
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.monitoreodeterremotos.Detalles.DetallesActivity
 import com.example.monitoreodeterremotos.EqAdapter
 import com.example.monitoreodeterremotos.R
 import com.example.monitoreodeterremotos.Terremoto
@@ -65,7 +67,9 @@ class MainActivity : AppCompatActivity() {
 
 
         adapter.onItemClickListener = {
-            Toast.makeText(this,it.lugar, Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, DetallesActivity::class.java)
+            intent.putExtra(DetallesActivity.KEY_TERREMOTO, it)
+            startActivity(intent)
         }
     }
 
