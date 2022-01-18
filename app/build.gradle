@@ -53,6 +53,10 @@ dependencies {
     //Room para bases de datos
     implementation 'androidx.room:room-runtime:2.4.1'
     kapt 'androidx.room:room-compiler:2.4.1'
+
+    //Worck Manager
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

@@ -26,12 +26,17 @@ class MainViewModel(application: Application,private val tipoClas:Boolean): Andr
     val status : LiveData<ApiResposeStatus> get() = _status
 
     init {
-        cargarTerremotos()//La primera vez carga por tiempo
+        cargarTerremotosDeDb(tipoClas)//La primera vez carga por tiempo
     }
 
     fun cargarTerremotosDeDb(tClas:Boolean){
         viewModelScope.launch {
             _eqList.value = repositorio.recuperarTerremotosDeDatabase(tClas)
+            //Si entra y la lista esta vacia llama a descargar los datos
+            //Esto puede pasar porque worker todavia no fue llamado
+            if (_eqList.value!!.isEmpty()){
+                cargarTerremotos()
+            }
         }
 
     }

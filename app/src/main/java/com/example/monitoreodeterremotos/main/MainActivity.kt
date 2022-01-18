@@ -15,12 +15,13 @@ import com.example.monitoreodeterremotos.EqAdapter
 import com.example.monitoreodeterremotos.R
 import com.example.monitoreodeterremotos.Terremoto
 import com.example.monitoreodeterremotos.api.ApiResposeStatus
+import com.example.monitoreodeterremotos.api.WorkerUtil
 import com.example.monitoreodeterremotos.databinding.ActivityMainBinding
 //Para implementar la API utilizaremos retrofit con implementation 'com.squareup.retrofit2:retrofit:(insert latest version)'
 //Para agregar el RecyclerView debo implementar implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
 class MainActivity : AppCompatActivity() {
     companion object{
-        val SORT_TYPE_KEY = "sort_key"
+        const val SORT_TYPE_KEY = "sort_key"
     }
 
     lateinit private var viewModel:MainViewModel
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //Esta llamando a descargar los datos de terremoto cada 1 hora despues de ser llamado por primera vez
+        WorkerUtil.scheduleSync(this)
 
         var tipoClasific = getTipoClasific()
 
