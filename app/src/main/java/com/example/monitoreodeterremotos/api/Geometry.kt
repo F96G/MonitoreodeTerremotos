@@ -1,4 +1,4 @@
-package com.example.monitoreodeterremotos;
+package com.example.monitoreodeterremotos.api;
 
 public class Geometry(private val coordinates:Array<Double>){
     val longitu:Double get() = coordinates[0]

@@ -1,9 +1,8 @@
-package com.example.monitoreodeterremotos
+package com.example.monitoreodeterremotos.api
 
 import retrofit2.http.GET
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 
 //Para utilizar el internet se necesita solicitar el permiso en manifest <uses-permission android:name="android.permission.INTERNET"/>
 interface EqApiService {

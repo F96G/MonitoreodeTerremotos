@@ -1,14 +1,14 @@
-package com.example.monitoreodeterremotos
+package com.example.monitoreodeterremotos.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.monitoreodeterremotos.EqAdapter
+import com.example.monitoreodeterremotos.Terremoto
 import com.example.monitoreodeterremotos.databinding.ActivityMainBinding
 //Para implementar la API utilizaremos retrofit con implementation 'com.squareup.retrofit2:retrofit:(insert latest version)'
 //Para agregar el RecyclerView debo implementar implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
@@ -19,7 +19,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.eqRecycler.layoutManager = LinearLayoutManager(this)
-        val viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        //Como los viewModel no se les insancia se debe crear un factory
+        val viewModel = ViewModelProvider(this, MainVewModelFactory(application)).get(MainViewModel::class.java)
         val adapter = EqAdapter(this)
 
         binding.eqRecycler.adapter = adapter
