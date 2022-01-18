@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.monitoreodeterremotos.Terremoto
+import com.example.monitoreodeterremotos.api.ApiResposeStatus
 import com.example.monitoreodeterremotos.database.getDatabase
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -23,13 +24,20 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     //No utilizo livedata porque el database ya lo hace
     val eqList = repositorio.eqList
 
+    //Dependiendo del estado de traer los datos va a cambiar el status
+    private val _status = MutableLiveData<ApiResposeStatus>()
+    val status : LiveData<ApiResposeStatus> get() = _status
+
     init {
         //viewModelScope permite llamar metodos suspend o ejecutar withContext.
         viewModelScope.launch {
             try {
+                _status.value = ApiResposeStatus.LOADING //Antes de traer los datos, status esta en loading
                 repositorio.recuperarTerremotos()
+                _status.value = ApiResposeStatus.DONE
             }catch (e:UnknownHostException){//En caso de no haber internet
                 Log.d(MainViewModel::class.java.simpleName,"No internet connection", e )
+                _status.value = ApiResposeStatus.ERROR
             }
 
         }

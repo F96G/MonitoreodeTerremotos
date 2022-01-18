@@ -1,5 +1,6 @@
 package com.example.monitoreodeterremotos.main
 
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.monitoreodeterremotos.EqAdapter
 import com.example.monitoreodeterremotos.Terremoto
+import com.example.monitoreodeterremotos.api.ApiResposeStatus
 import com.example.monitoreodeterremotos.databinding.ActivityMainBinding
 //Para implementar la API utilizaremos retrofit con implementation 'com.squareup.retrofit2:retrofit:(insert latest version)'
 //Para agregar el RecyclerView debo implementar implementation 'androidx.recyclerview:recyclerview-selection:1.1.0'
@@ -30,6 +32,20 @@ class MainActivity : AppCompatActivity() {
 
             manejarListaVacia(eqList, binding)
         })
+
+        viewModel.status.observe(this){
+            when(it){
+                (ApiResposeStatus.DONE)->{
+                    binding.pbLoading.visibility = View.VISIBLE
+                }(ApiResposeStatus.LOADING)->{
+                binding.pbLoading.visibility = View.GONE
+                }(ApiResposeStatus.ERROR)->{
+                binding.pbLoading.visibility = View.GONE
+                Toast.makeText(this, "Error de descarga, ver internet",Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        }
 
 
         adapter.onItemClickListener = {

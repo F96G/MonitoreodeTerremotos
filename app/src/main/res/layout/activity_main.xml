@@ -29,5 +29,13 @@
             android:textSize="24sp"
             android:visibility="gone" />
 
+        <ProgressBar
+            android:id="@+id/pbLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible"/>
+
     </FrameLayout>
 </layout>
