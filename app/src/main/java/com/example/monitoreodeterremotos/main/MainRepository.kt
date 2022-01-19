@@ -18,6 +18,9 @@ class MainRepository(private val database: EqDatabase) {
             //Lo que debueble la currutina
             val listaTerremotos = parseEqResultado(eqJsonResponse)
 
+            //Le envio la lista de terremotos a DAO
+            database.eqDao.insertAll(listaTerremotos)
+
             //Lo descargado de la API se lo paso al database
             recuperarTerremotosDeDatabase(tipoClas)
 //            listaTerremotos <- devuelvo directamente de la API
